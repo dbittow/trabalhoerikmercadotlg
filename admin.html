@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerência do Mercado</title>
+  <meta name="description" content="Cadastro de produtos, estoque e histórico de pedidos.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="topo-interno">
+      <a class="marca" href="/">Mercado Pomar <small>gerência</small></a>
+      <nav class="nav" aria-label="Principal">
+        <a href="/">Loja</a>
+        <a href="/admin" aria-current="page">Gerência</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pagina">
+    <div class="abas" role="tablist" aria-label="Seções da gerência">
+      <button id="aba-produtos" class="aba" role="tab" type="button" aria-selected="true" aria-controls="painel-produtos">Produtos</button>
+      <button id="aba-pedidos" class="aba" role="tab" type="button" aria-selected="false" aria-controls="painel-pedidos">Pedidos</button>
+    </div>
+
+    <section id="painel-produtos" role="tabpanel" aria-labelledby="aba-produtos">
+      <div class="cabecalho">
+        <h1>Produtos</h1>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <label>
+            <span class="sr-only">Buscar produto</span>
+            <input id="busca" class="campo-busca" type="search" placeholder="Buscar produto" autocomplete="off">
+          </label>
+          <button id="novo" class="botao primario" type="button">Novo produto</button>
+        </div>
+      </div>
+      <div class="painel-tabela">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Produto</th>
+              <th scope="col">Categoria</th>
+              <th scope="col">Unidade</th>
+              <th scope="col" class="direita">Preço</th>
+              <th scope="col">Estoque</th>
+              <th scope="col" class="direita">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="linhas"></tbody>
+        </table>
+      </div>
+      <p id="sem-produtos" class="vazio" hidden>Nenhum produto encontrado.</p>
+    </section>
+
+    <section id="painel-pedidos" role="tabpanel" aria-labelledby="aba-pedidos" hidden>
+      <div class="cabecalho"><h1>Pedidos</h1></div>
+      <div class="painel-tabela">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Pedido</th>
+              <th scope="col">Data</th>
+              <th scope="col">Itens</th>
+              <th scope="col" class="direita">Subtotal</th>
+              <th scope="col" class="direita">Desconto</th>
+              <th scope="col" class="direita">Total</th>
+            </tr>
+          </thead>
+          <tbody id="linhas-pedidos"></tbody>
+        </table>
+      </div>
+      <p id="sem-pedidos" class="vazio" hidden>Nenhum pedido realizado ainda.</p>
+    </section>
+  </main>
+
+  <dialog id="dialogo-produto" aria-labelledby="titulo-form">
+    <form id="form-produto" class="dialogo" novalidate>
+      <h2 id="titulo-form">Novo produto</h2>
+      <div class="formulario">
+        <label class="inteiro">Nome
+          <input name="name" maxlength="80" required autocomplete="off">
+          <span class="erro-campo" data-erro="name"></span>
+        </label>
+        <label>Categoria
+          <input name="category" list="lista-categorias" maxlength="40" required autocomplete="off">
+          <datalist id="lista-categorias"></datalist>
+          <span class="erro-campo" data-erro="category"></span>
+        </label>
+        <label>Unidade
+          <select name="unit">
+            <option value="un">Unidade (un)</option>
+            <option value="kg">Quilo (kg)</option>
+            <option value="L">Litro (L)</option>
+            <option value="pct">Pacote (pct)</option>
+            <option value="cx">Caixa (cx)</option>
+          </select>
+          <span class="erro-campo" data-erro="unit"></span>
+        </label>
+        <label>Preço (R$)
+          <input name="price" inputmode="decimal" placeholder="0,00" required autocomplete="off">
+          <span class="erro-campo" data-erro="priceCents"></span>
+        </label>
+        <label>Estoque
+          <input name="stock" type="number" min="0" step="1" inputmode="numeric" required>
+          <span class="erro-campo" data-erro="stock"></span>
+        </label>
+      </div>
+      <div class="dialogo-acoes">
+        <button id="cancelar" class="botao" type="button">Cancelar</button>
+        <button id="salvar" class="botao primario" type="submit">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dialogo-excluir" aria-labelledby="titulo-excluir">
+    <div class="dialogo">
+      <h2 id="titulo-excluir">Excluir produto?</h2>
+      <p id="texto-excluir"></p>
+      <div class="dialogo-acoes">
+        <button id="cancelar-excluir" class="botao" type="button">Cancelar</button>
+        <button id="confirmar-excluir" class="botao perigo" type="button">Excluir</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="toast" role="status" hidden></div>
+  <script src="/comum.js"></script>
+  <script src="/admin.js"></script>
+</body>
+</html>

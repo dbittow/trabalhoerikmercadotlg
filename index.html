@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mercadinho Pomar</title>
+  <meta name="description" content="Compras legais">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topo">
+    <div class="topo-interno">
+      <a class="marca" href="/">Mercadinho Pomar <small>compras legais</small></a>
+      <nav class="nav" aria-label="Principal">
+        <a href="/" aria-current="page">Loja</a>
+        <a href="/admin">Gerência</a>
+      </nav>
+    </div>
+  </header>
+  <p class="faixa">Compras acima de R$ 200,00 ganham 5% de desconto</p>
+
+  <main class="pagina loja">
+    <section aria-labelledby="titulo-produtos">
+      <h1 id="titulo-produtos" class="sr-only">Produtos</h1>
+      <div class="filtros">
+        <label>
+          <span class="sr-only">Buscar produto</span>
+          <input id="busca" class="campo-busca" type="search" placeholder="Buscar produto" autocomplete="off">
+        </label>
+        <div id="categorias" class="chips" role="group" aria-label="Filtrar por categoria"></div>
+      </div>
+      <div id="grade" class="grade"></div>
+      <p id="sem-resultado" class="vazio" hidden>Nenhum produto encontrado.</p>
+    </section>
+
+    <aside id="carrinho" class="carrinho" aria-labelledby="titulo-carrinho">
+      <div class="carrinho-topo">
+        <h2 id="titulo-carrinho">Seu carrinho</h2>
+        <button id="limpar" class="link-botao" type="button" hidden>Esvaziar</button>
+      </div>
+      <ul id="itens" class="itens"></ul>
+      <div class="resumo">
+        <div id="meta" class="meta" aria-live="polite" hidden></div>
+        <div class="linha-valor"><span>Subtotal</span><span id="subtotal" class="num">R$ 0,00</span></div>
+        <div id="linha-desconto" class="linha-valor desconto" hidden><span>Desconto (5%)</span><span id="desconto" class="num"></span></div>
+        <div class="linha-valor total"><span>Total</span><span id="total" class="num" aria-live="polite">R$ 0,00</span></div>
+        <button id="finalizar" class="botao primario largo" type="button" disabled>Finalizar compra</button>
+      </div>
+    </aside>
+  </main>
+
+  <div class="barra-movel">
+    <div><small id="movel-qtd">0 itens</small><br><strong id="movel-total" class="num">R$ 0,00</strong></div>
+    <a class="botao primario" href="#carrinho">Ver carrinho</a>
+  </div>
+
+  <dialog id="recibo" aria-labelledby="recibo-titulo">
+    <div class="dialogo">
+      <span class="selo">Compra concluída</span>
+      <h2 id="recibo-titulo"></h2>
+      <ul id="recibo-itens" class="recibo-itens"></ul>
+      <div>
+        <div class="linha-valor"><span>Subtotal</span><span id="recibo-subtotal" class="num"></span></div>
+        <div id="recibo-linha-desconto" class="linha-valor desconto"><span>Desconto (5%)</span><span id="recibo-desconto" class="num"></span></div>
+        <div class="linha-valor total"><span>Total</span><span id="recibo-total" class="num"></span></div>
+      </div>
+      <p class="estoque">O estoque já foi atualizado.</p>
+      <div class="dialogo-acoes">
+        <button id="fechar-recibo" class="botao primario" type="button">Nova compra</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="toast" role="status" hidden></div>
+  <script src="/comum.js"></script>
+  <script src="/loja.js"></script>
+</body>
+</html>
